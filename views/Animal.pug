@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  - const Animal = ['Animal_name','color','weight']
+  script.
+    function buy(index)
+        {
+            alert(`You played game ${index+1}`)
+        }
+  //- const results = [{ game_name: "GTA", version: 5, price: "300" },{ game_name: "PUBG", version: 3, price: "200" },{ game_name: "COC", version: 4, price: "100" }]
+  - const results = [{ Animal_name: "Dog", color: "green", weight: "70"},{ Animal_name: "Cat", color: "white", weight: "100" },{ Animal_name: "Tiger", color: "yellow", weight: "200"}]
+  div(class='container-fluid')
+    div(class='row')
+      each result,index in results
+        div(class='col-sm-2' onclick =`buy(${index})`)
+          p Animal_name: #{result.Animal_name}
+          p color: #{result.color}
+          p weight: #{result.weight}
