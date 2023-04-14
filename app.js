@@ -4,11 +4,31 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,
+{useNewUrlParser: true,
+useUnifiedTopology: true});
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var AnimalRouter = require('./routes/Animal');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
+var Animal = require("./models/Animal");
+var resourceRouter = require("./routes/resource");
+
 
 var app = express();
 
@@ -27,6 +47,7 @@ app.use('/users', usersRouter);
 app.use('/Animal', AnimalRouter);
 app.use('/board', boardRouter);
 app.use('/selector', selectorRouter);
+app.use('/resource', resourceRouter)
 
 
 
@@ -48,3 +69,38 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+// We can seed the collection if needed on
+
+ function recreateDB(){
+// Delete everything
+ Animal.deleteMany();
+let instance1 = new
+Animal({Animal_name:"Dog", color:'green',
+weight:70});
+instance1.save().then(doc=>{
+console.log("First object saved")}
+).catch(err=>{
+console.error(err)
+});
+let instance2 = new
+Animal({Animal_name:"Cat", color:'White',
+weight:100});
+instance2.save().then(doc=>{
+console.log("second object saved")}
+).catch(err=>{
+console.error(err)
+});
+let instance3 = new
+Animal({Animal_name:"Tiger", color:'yellow',
+weight:300});
+instance3.save().then(doc=>{
+console.log("third object saved")}
+).catch(err=>{
+console.error(err)
+});
+
+}
+let reseed = true;
+if (reseed) {recreateDB();}
+
