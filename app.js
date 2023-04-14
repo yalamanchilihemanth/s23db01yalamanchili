@@ -68,7 +68,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+
 
 // We can seed the collection if needed on
 
@@ -103,4 +103,6 @@ console.error(err)
 }
 let reseed = true;
 if (reseed) {recreateDB();}
+
+module.exports = app;
 
