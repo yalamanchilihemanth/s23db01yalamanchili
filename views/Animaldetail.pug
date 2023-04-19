@@ -1,0 +1,24 @@
+extends layout
+block content
+    h1= title
+
+    if (toShow == null)
+      h2 No instance to show
+    else
+        - let Animalid = toShow._id
+        - let Animal_name = toShow.Animal_name
+        - let color = toShow.color
+        - let weight = toShow.weight
+        div
+        div.row
+            div(class='AnimalAttr mr-3') Animal ID is:
+            div #{Animalid}
+        div.row
+            div(class='AnimalAttr mr-3') Animal Animal_name is:
+            div #{Animal_name}
+        div.row
+            div(class='AnimalAttr mr-3') Animal color is:
+            div #{color}
+        div.row
+            div(class='AnimalAttr mr-3') Animal weight is:
+            div #{weight}

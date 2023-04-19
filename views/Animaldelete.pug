@@ -1,0 +1,53 @@
+extends layout
+ 
+block content
+  h1= title
+ 
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let AnimalId = toShow._id
+    - let Animal_name = toShow.Animal_name
+    - let color = toShow.color
+    - let weight = toShow.weight
+    - let actionid = "/resource/Animal/" + AnimalId
+    script let actionid = "#{actionid}"
+    div
+      div.row
+        div(class='AnimalAttr mr-3') Animal ID is:
+        div #{AnimalId}
+      div.row
+        div(class='AnimalAttr mr-3') Animal Animal_name is:
+        div #{Animal_name}
+      div.row
+        div(class='AnimalAttr mr-3') Animal color is:
+        div #{color}
+      div.row
+        div(class='AnimalAttr mr-3') Animal weight is:
+        div #{weight}
+ 
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+ 
+  script.
+    function cancel() {
+      // Go back to the home page for the costume collection
+      window.location.href='/Animal'
+    }
+  script.
+    function deleteOnid() {
+      console.log("starting delete")
+      // delete first
+      fetch(actionid, {
+        method: 'DELETE'      // Don't need a body for the delete
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Delete succeded")
+        window.location.href='/Animal'
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Delete failed " + error )
+      });
+    }

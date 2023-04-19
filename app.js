@@ -72,9 +72,9 @@ app.use(function(err, req, res, next) {
 
 // We can seed the collection if needed on
 
- function recreateDB(){
+ async function recreateDB(){
 // Delete everything
- Animal.deleteMany();
+ await Animal.deleteMany();
 let instance1 = new
 Animal({Animal_name:"Dog", color:'green',
 weight:70});
