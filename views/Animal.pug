@@ -7,8 +7,16 @@ block content
     div(class="container-fliud")
         div(class="row")
             each Animals in result   
+                    - let destination = `dispatch(\"/Animal/update?id=${Animals._id}\")`
+                    div(class="col-sm-2" class="m-1")
                     p Animal_Name  #{Animals.Animal_name}
                     p color   #{Animals.color}
                     p Weight  #{Animals.weight}
+                    button.btn( class="btn-primary ml-1", onclick= destination) Update
+    script. 
+        function dispatch(path){
+          console.log(path);
+          window.location.href=path;
+        }
     
 
