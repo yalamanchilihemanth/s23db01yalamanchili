@@ -1,43 +1,45 @@
 extends layout
-block content
-    h1= title
 
-    if (toShow == null)
-      h2 No instance to update
-    else
-        - let Animalid = toShow._id
-        - let Animal_name = toShow.Animal_name
-        - let color = toShow.color
-        - let weight = toShow.weight
-        div.row(class='mb-2')
-        div.mr-1 ID is
-        div #{shoeid}
-        - let actionid = "/resource/Animal/" + Animalid
-        form(id='AnimalForm', action= actionid, method="PUT")
-        div.form-group
-            label.AnimalAttr(for='Animal_name') Animal Animal_name
-            input#Animal_name(type='text', name='Animal_name', value= Animal_name )
-        div.form-group
+block content
+  h1= title
+  if(toShow==null)
+    h2 No instance to Detail
+  else
+    - let Animalid = toShow._id
+    - let Animal_name = toShow.Animal_name
+    - let color = toShow.color
+    - let weight = toShow.weight
+
+    div.row(class='mb-2')
+      div.mr-1 ID is
+      div #{Animalid}
+    - let actionid = "/resource/Animal/" + Animalid
+    form(id='AnimalForm', action= actionid, method="PUT")
+      div.form-group
+        label.AnimalAttr(for='Animal_name') Animal Animal_name
+        input#Animal_name(type='text', name='Animal_name', value= Animal_name )
+      div.form-group
         label.AnimalAttr(for='color') Animal color
-            input#color(type='text', name='color', value= color )
-        div.form-group
-            label.AnimalAttr(for='weight') Animal weight
-            input#weight(type='number', name='weight', value= weight )
-        input(type="submit")
+        input#color(type='text', name='color', value= color )
+      div.form-group
+        label.AnimalAttr(for='weight') Animal weight
+        input#weight(type='number', name='weight', value= weight )
+      input(type="submit")
+
     script.
-      document.forms['Animalid'].addEventListener('submit', (event) => {
+      document.forms['AnimalForm'].addEventListener('submit', (event) => {
         event.preventDefault();
         // TODO do something here to show user that form is being submitted
         fetch(event.target.action, {
-        method: 'PUT',
-        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
         }).then((resp) => {
-        return resp.json(); // or resp.text() or whatever the server sends
+          return resp.json(); // or resp.text() or whatever the server sends
         }).then((body) => {
-        alert("Update succeded")
-        // TODO handle body
+          alert("Update succeded")
+          // TODO handle body
         }).catch((error) => {
-        // TODO handle error
-        alert("Update failed " + error )
+          // TODO handle error
+          alert("Update failed " + error )
         });
-        });
+      });

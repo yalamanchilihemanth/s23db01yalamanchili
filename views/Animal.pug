@@ -2,17 +2,24 @@ extends layout
 
 block content
   h1= title
+  - let Create = `dispatch(\"/Animal/create\")`
+   button.btn( class="btn-danger ml-1", onclick= Create) Create
   p
    - let result = results
     div(class="container-fliud")
         div(class="row")
             each Animals in result   
                     - let destination = `dispatch(\"/Animal/update?id=${Animals._id}\")`
+                    - let detail = `dispatch(\"/Animal/detail?id=${Animals._id}\")`
+                    - let Delete = `dispatch(\"/Animal/delete?id=${Animals._id}\")`
                     div(class="col-sm-2" class="m-1")
                     p Animal_Name  #{Animals.Animal_name}
                     p color   #{Animals.color}
                     p Weight  #{Animals.weight}
                     button.btn( class="btn-primary ml-1", onclick= destination) Update
+                    button.btn( class="btn-secondary ml-1", onclick= detail) detail
+                    button.btn( class="btn-danger ml-1", onclick= Delete) delete
+
     script. 
         function dispatch(path){
           console.log(path);
